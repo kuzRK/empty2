@@ -1,6 +1,6 @@
 #include <iostream>
 
-int make(int rows, int cols)
+int **make(int rows, int cols)
 {
   int **mtx = new int*[rows];
   for (size_t i = 0; i < rows ; ++i) {
@@ -56,5 +56,5 @@ int main()
   if (std::cin.fail()) {
     return 1;
   }
-  output(mtx);
-  rm(mtx);
+  output(mtx,rows,cols);
+  rm(mtx,rows);
