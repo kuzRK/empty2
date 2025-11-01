@@ -1,63 +1,70 @@
 #include <iostream>
 
 
-void rm(int **mtx, int rows)
+void rm(int *mtx)
 {
-  for (size_t i = 0; i < rows; ++i) {
-    delete[] mtx[i];
-  }
   delete[] mtx;
 }
 
-int **make(int rows, int cols)
+int *make(size_t n)
 {
-  int **mtx = new int*[rows];
-  for (size_t i = 0; i < rows ; ++i) {
-    try {
-       mtx[i] = new int[cols];
-    }
-    catch(const std::bad_alloc &) {
-      rm(mtx,i);
-      throw;
-    }
+  int *mtx = nullptr;
+  try {
+    mtx = new int[n];
+  }
+  catch(const std::bad_alloc &) {
+    rm(mtx);
+    throw;
   }
   return mtx;
 }
 
-void input(int **mtx,int rows, int cols)
+void input(int *mtx,size_t n)
 {
-  for (size_t i = 0 ; i < rows; ++i) {
-    for (size_t j = 0; j < cols; ++j) {
-      std::cin >> mtx[i][j];
-    }
+  for (size_t i = 0 ; i < n; ++i) {
+    std::cin >> mtx[i];
   }
 }
-void output(const int *const*mtx, int rows, int cols)
+void output(int **mtx,size_t *lns, int rows)
 {
   for (size_t i = 0; i < rows; ++i) {
-    for (size_t j = 0; j < cols; ++j) {
+    for (size_t j = 0; j < lns[i]; ++j) {
       std::cout << mtx[i][j] << " ";
     }
   std::cout << "\n";
   }
 }
 
+int ** convert(const int * t, size_t n, const size_t * lns, size_t rows)
+{
+  int **res = new int*[rows];
+  size_t k = 0;
+  for (size_t i = 0; i < rows; ++i) {
+    res[i] = new int[lns[i]];
+    for (size_t j = 0; j < lns[i]; ++j) {
+      res[i][j] = t[k++];
+    }
+  }
+  return res;
+}
 int main()
 {
   int rows = 0;
-  int cols = 0;
-  std::cin >> rows >> cols;
-  int **mtx = nullptr;
+  size_t n = 12;
+  size_t lns[] = {4,2,5,1};
+  std::cin >> rows;
+  int *mtx = nullptr;
   try {
-    mtx = make(rows,cols);
+    mtx = make(n);
   }
   catch(const std::bad_alloc &) {
     return 2;
   }
-  input(mtx,rows,cols);
+  input(mtx,n);
   if (std::cin.fail()) {
     return 1;
   }
-  output(mtx,rows,cols);
-  rm(mtx,rows);
+  int **c = convert(mtx,n,lns,rows);
+  output(c,lns,rows);
+  rm(mtx);
 }
