@@ -50,9 +50,14 @@ int ** convert(const int * t, size_t n, const size_t * lns, size_t rows)
 int main()
 {
   int rows = 0;
-  size_t n = 12;
-  size_t lns[] = {4,2,5,1};
+  size_t n = 0;
   std::cin >> rows;
+  size_t *lns = new size_t[rows];
+  for (size_t i = 0; i < rows; ++i) {
+    std::cin >> lns[i];
+    n += lns[i];
+  }
+
   int *mtx = nullptr;
   try {
     mtx = make(n);
