@@ -1,5 +1,14 @@
 #include <iostream>
 
+
+void rm(int **mtx, int rows)
+{
+  for (size_t i = 0; i < rows; ++i) {
+    delete[] mtx[i];
+  }
+  delete[] mtx;
+}
+
 int **make(int rows, int cols)
 {
   int **mtx = new int*[rows];
@@ -33,13 +42,6 @@ void output(const int *const*mtx, int rows, int cols)
   }
 }
 
-void rm(int **mtx, int rows)
-{
-  for (size_t i = 0; i < rows; ++i) {
-    delete[] mtx[i];
-  }
-  delete[] mtx;
-}
 int main()
 {
   int rows = 0;
