@@ -15,9 +15,16 @@ int make(int rows, int cols)
   return mtx;
 }
 
+void input(int **mtx,int rows, int cols)
+{
+  for (size_t i = 0 ; i < rows; ++i) {
+    for (size_t j = 0; j < cols; ++j) {
+      std::cin >> mtx[i][j];
+    }
+  }
+}
 void output(const int *const*mtx)
 {
-
 }
 
 void rm(int **mtx, int rows)
@@ -32,15 +39,16 @@ int main()
   int rows = 0;
   int cols = 0;
   std::cin >> rows >> cols;
-  if (std::cin.fail()) {
-    return 1;
-  }
   int **mtx = nullptr;
   try {
     mtx = make(rows,cols);
   }
   catch(const std::bad_alloc &) {
     return 2;
+  }
+  input(mtx,rows,cols);
+  if (std::cin.fail()) {
+    return 1;
+  }
   output(mtx);
   rm(mtx);
-}
