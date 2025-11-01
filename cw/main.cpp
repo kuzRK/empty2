@@ -2,7 +2,17 @@
 
 int make(int rows, int cols)
 {
-
+  int **mtx = new int*[rows];
+  for (size_t i = 0; i < r ; ++i) {
+    try {
+       mtx[i] = new int[cols];
+    }
+    catch(const std::bad_alloc &) {
+      rm(mtx,i);
+      throw;
+    }
+  }
+  return mtx;
 }
 
 void output(const int *const*mtx)
@@ -26,7 +36,11 @@ int main()
     return 1;
   }
   int **mtx = nullptr;
-  mtx = make(rows,cols);
+  try {
+    mtx = make(rows,cols);
+  }
+  catch(const std::bad_alloc &) {
+    return 2;
   output(mtx);
   rm(mtx);
 }
