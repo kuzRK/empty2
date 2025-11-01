@@ -60,3 +60,4 @@ int main()
   }
   output(mtx,rows,cols);
   rm(mtx,rows);
+}
