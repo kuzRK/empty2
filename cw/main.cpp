@@ -23,8 +23,14 @@ void input(int **mtx,int rows, int cols)
     }
   }
 }
-void output(const int *const*mtx)
+void output(const int *const*mtx, int rows, int cols)
 {
+  for (size_t i = 0; i < rows; ++i) {
+    for (size_t j = 0; j < cols; ++j) {
+      std::cout << mtx[i][j] << " ";
+    }
+  std::cout << "\n";
+  }
 }
 
 void rm(int **mtx, int rows)
