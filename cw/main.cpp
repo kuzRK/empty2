@@ -10,9 +10,12 @@ void output(const int *const*mtx)
 
 }
 
-void rm(int **mtx)
+void rm(int **mtx, int rows)
 {
-
+  for (size_t i = 0; i < rows; ++i) {
+    delete[] mtx[i];
+  }
+  delete[] mtx;
 }
 int main()
 {
