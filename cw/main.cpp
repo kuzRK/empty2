@@ -3,7 +3,7 @@
 int make(int rows, int cols)
 {
   int **mtx = new int*[rows];
-  for (size_t i = 0; i < r ; ++i) {
+  for (size_t i = 0; i < rows ; ++i) {
     try {
        mtx[i] = new int[cols];
     }
